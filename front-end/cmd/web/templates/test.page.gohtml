@@ -44,14 +44,14 @@
     logBtn.addEventListener("click", function(){
         const payload = {
             action: "log",
-            log:{
+            log: {
                 name: "event",
                 data: "any data",
             }
         }
 
-        const headers = new Headers()
-        headers.append("Content-Type","application/json")
+        const headers = new Headers();
+        headers.append("Content-Type","application/json");
 
         const body = {
             method: "POST",
