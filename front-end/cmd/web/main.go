@@ -30,8 +30,8 @@ func render(w http.ResponseWriter, t string) {
 	var templateSlice []string
 	templateSlice = append(templateSlice, fmt.Sprintf("./cmd/web/templates/%s", t))
 
-	for _, x := range partials {
-		templateSlice = append(templateSlice, x)
+	for range partials {
+		templateSlice = append(templateSlice, partials...)
 	}
 
 	tmpl, err := template.ParseFiles(templateSlice...)
@@ -42,7 +42,13 @@ func render(w http.ResponseWriter, t string) {
 
 	}
 
-	if err := tmpl.Execute(w, nil); err != nil {
+	var data struct {
+		BrokerURL string
+	}
+
+	data.BrokerURL = "http://localhost:8080"
+
+	if err := tmpl.Execute(w, data); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
